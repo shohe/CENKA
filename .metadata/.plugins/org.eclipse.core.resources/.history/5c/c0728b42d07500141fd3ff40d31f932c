@@ -1,0 +1,127 @@
+package jp.ac.hal.cenka;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class Dao {
+	// コネクション
+		private Connection con;
+		
+		/**
+		 * インスタンス生成と同時にコネクションを取得する
+		 * @throws NamingException
+		 * @throws SQLException
+		 */
+		public Dao() throws NamingException, SQLException{
+			// JNDI DataSource lookup
+			InitialContext context = new InitialContext();
+			DataSource datasourse = (DataSource) context.lookup("java:comp/env/jdbc/kadai08");
+			// get Connection with DB
+			con = datasourse.getConnection();
+		}
+		
+		/**
+		 * Billsテーブルを全て取得
+		 * @return
+		 * @throws SQLException
+		 */
+		public ArrayList<BillsBeans> findAllBills() throws SQLException {
+			PreparedStatement select = con.prepareStatement("select * from bills");
+			ResultSet res = select.executeQuery();
+			ArrayList<BillsBeans> billsArray = new ArrayList<BillsBeans>();
+			
+			while(res.next()) {
+				// beans インスタンス化
+				BillsBeans billsBeans = new BillsBeans();
+				billsBeans.setBill_id(res.getInt("bill_id"));
+				billsBeans.setName(res.getString("name"));
+				billsBeans.setTerm(res.getString("term"));
+				billsBeans.setPlace(res.getString("place"));
+				billsBeans.setSystem(res.getString("system"));
+				billsBeans.setAvailable(res.getString("available"));
+				billsBeans.setCharge(res.getString("charge"));
+				billsBeans.setTel(res.getInt("tel"));
+				billsBeans.setFax(res.getInt("fax"));
+				
+				// 配列へ格納
+				billsArray.add(billsBeans);
+			}
+			return billsArray;
+		}
+		
+		/**
+		 * Estimatesテーブルを全て取得
+		 * @return
+		 * @throws SQLException
+		 */
+		public ArrayList<BillsBeans> findAllestimates() throws SQLException {
+			PreparedStatement select = con.prepareStatement("select * from bills");
+			ResultSet res = select.executeQuery();
+			ArrayList<BillsBeans> billsArray = new ArrayList<BillsBeans>();
+			
+			while(res.next()) {
+				// beans インスタンス化
+				BillsBeans billsBeans = new BillsBeans();
+				billsBeans.setBill_id(res.getInt("bill_id"));
+				billsBeans.setName(res.getString("name"));
+				billsBeans.setTerm(res.getString("term"));
+				billsBeans.setPlace(res.getString("place"));
+				billsBeans.setSystem(res.getString("system"));
+				billsBeans.setAvailable(res.getString("available"));
+				billsBeans.setCharge(res.getString("charge"));
+				billsBeans.setTel(res.getInt("tel"));
+				billsBeans.setFax(res.getInt("fax"));
+				
+				// 配列へ格納
+				billsArray.add(billsBeans);
+			}
+			return billsArray;
+		}
+		
+		
+		/**
+		 * 主キー検索します
+		 * 
+		 * @param bill_Id
+		 * @return
+		 */
+		public EstimatesBeans findByLanguageId(int bill_Id) {
+			return null;
+		}
+		
+		
+		/**
+		 * コネクションのクローズ処理
+		 * 
+		 * @throws SQLException
+		 */
+		public void close() throws SQLException{
+			try {
+				con.close();
+			} catch (SQLException e) {
+				con = null;
+				throw e;
+			}
+		}
+		
+		/**
+		 * コネクションのロールバック処理
+		 * 
+		 * @throws SQLException
+		 */
+		public void rollback() throws SQLException {
+			try {
+				con.rollback();
+			} catch (SQLException e) {
+				con = null;
+				throw e;
+			}
+		}
+}

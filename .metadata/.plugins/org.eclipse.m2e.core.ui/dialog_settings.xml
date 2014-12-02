@@ -41,12 +41,16 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
+			<item value="jp.ac.hal.cenka.sugukuru_admin"/>
+			<item value="jp.ac.hal.cenka.sugukuruadmin"/>
 			<item value="jp.ac.hal.cenka"/>
 		</list>
 		<list key="groupId">
 			<item value="jp.ac.hal.cenka"/>
 		</list>
 		<list key="artifactId">
+			<item value="sugukuru_admin"/>
+			<item value="sugukuruadmin"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

@@ -1,0 +1,15 @@
+package jp.ac.hal.cenka;
+import java.io.Serializable;
+
+public class EstimatesBeans implements Serializable{
+	
+	private int bill_id;
+	private String term;
+	private String place;
+	private String system;
+	private String available;
+	private String charge;
+	private int tel;
+	private int fax;
+
+}
