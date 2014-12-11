@@ -118,6 +118,7 @@ public class PdfTempServlet extends HttpServlet {
 			
 			// 5 閉じる
 			stamper.close();
+			dao.close();
 			
 		} catch (Exception e) {
 			// TODO: handle exception

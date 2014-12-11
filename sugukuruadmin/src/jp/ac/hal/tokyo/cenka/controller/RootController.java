@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RootController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public String action;
+	public String jsp;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -56,7 +57,8 @@ public class RootController extends HttpServlet {
 	 * （URLのaction名が入力されてない時に呼ばれます。）
 	 * オーバーライドして使って下さい。
 	 */
-	public void action_index() {
+	public void action_index(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
 		
 	}
 

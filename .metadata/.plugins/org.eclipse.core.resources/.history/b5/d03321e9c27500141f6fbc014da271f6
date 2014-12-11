@@ -1,6 +1,0 @@
-package jp.ac.hal.cenka;
-import java.io.Serializable;
-
-public class BillsBeans implements Serializable{
-
-}
