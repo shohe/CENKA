@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;login_style.css&apos; to &apos;login_style.css&apos;&#x0A;- Original project: &apos;SugukuruAdmin&apos;&#x0A;- Destination element: &apos;login_style.css&apos;&#x0A;- Original element: &apos;login_style.css&apos;" description="Copy file" element1="WebContent/css/login_style.css" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1418698356228" target="/SugukuruAdmin/WebContent/css/login_style.css" units="0" version="1.0"/>
+</session>

@@ -42,14 +42,37 @@ public class LoginController extends RootController {
 	}
 
 	/**
+	 * ログインボタンを押した時に呼ばれます。
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String id = request.getParameter("id");
+		String pswd = request.getParameter("pswd");
+		
+		// idとpswdをチェックしてリダイレクト
+		if (chkLogin(id, pswd).equals("SALE_CONTROLLER")) {
+			this.jsp = SSCORE.SALE_CONTROLLER;
+		}
+		response.sendRedirect(this.jsp);
 	}
-
+	
 	/**
-	 * ログイン処理
+	 * ログインできるかをチェックする。
+	 * ログインした人によって部門名が戻り値として帰る。
+	 * 
+	 * @param id
+	 * @param pswd
+	 * @return
+	 */
+	public String chkLogin(String id, String pswd) {
+		// debug用
+		System.out.println("id: "+id+" pswd: "+pswd);
+		return "SALE_CONTROLLER";
+	}
+	
+	/**
+	 * ログイン画面に遷移
 	 * @throws IOException 
 	 * @throws ServletException 
 	 */
@@ -58,10 +81,12 @@ public class LoginController extends RootController {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.action_index(request, response);
+		
 		this.jsp = SSCORE.LOGIN_JSP;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(this.jsp);
 		dispatcher.forward(request, response);
 	}
+	
 	
 	/**
 	 * ログアウト処理
