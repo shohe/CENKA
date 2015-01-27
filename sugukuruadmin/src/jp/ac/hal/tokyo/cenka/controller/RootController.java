@@ -1,11 +1,15 @@
 package jp.ac.hal.tokyo.cenka.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import jp.ac.hal.tokyo.cenka.constant.SSCORE;
 
 /**
  * Servlet implementation class RootController
@@ -61,5 +65,18 @@ public class RootController extends HttpServlet {
 			throws ServletException, IOException {
 		
 	}
-
+	
+	/**
+	 * ログアウト
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	public void action_logout(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException {
+		
+		this.jsp = SSCORE.LOGIN_CONTROLLER;
+		response.sendRedirect(this.jsp);
+	}
 }

@@ -8,19 +8,31 @@
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
-			<item value="native.js"/>
-			<item value="JNDI"/>
-			<item value="LangBeans"/>
+			<item value="受注確認"/>
+			<item value="注文確認"/>
+			<item value="&quot;値&quot;"/>
+			<item value="sub_total"/>
+			<item value="&quot;¥"/>
+			<item value="id"/>
+			<item value="_"/>
+			<item value="subtotal"/>
 		</list>
 		<list key="replacehistory">
-			<item value="BillsBeans"/>
+			<item value="session.getAttribute(&quot;&quot;).toString()"/>
+			<item value="suppliers"/>
+			<item value=""/>
+			<item value="no"/>
+			<item value="sub_total"/>
+			<item value="unit_price"/>
+			<item value="商品"/>
+			<item value="¥"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="263" key="DIALOG_WIDTH"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="724" key="DIALOG_X_ORIGIN"/>
-		<item value="134" key="DIALOG_Y_ORIGIN"/>
+		<item value="868" key="DIALOG_X_ORIGIN"/>
+		<item value="347" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

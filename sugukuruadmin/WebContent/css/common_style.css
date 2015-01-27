@@ -49,14 +49,14 @@ header div {
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 }
-.activ {background: #337ab7;}
-.activ>a {
+#side_menu ul>li>a {
 	width: 220px;
 	height: 40px;
-	color: #fff;
-	display: block;
 	text-decoration: none;
+	display: block;
 }
+.activ {background: #337ab7;}
+.activ>a {color: #fff;}
 
 /*****************************************/
 /* main
@@ -65,5 +65,9 @@ header div {
 	width: 865px;
 	height: 500px;
 	float: left;
-	background: #eee;
+	/* background: #eee; */
+}
+
+#events-table:hover {
+	cursor: pointer;
 }

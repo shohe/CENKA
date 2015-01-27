@@ -35,7 +35,7 @@ public class LoginController extends RootController {
 		if(this.action == null) {
 			action_index(request, response);
 		} else if(this.action.equals("logout")) {
-			action_logout();
+			super.action_logout(request, response);
 		} else if(this.action.equals("addUser")) {
 			action_addUser();
 		}
@@ -86,14 +86,7 @@ public class LoginController extends RootController {
 		RequestDispatcher dispatcher = request.getRequestDispatcher(this.jsp);
 		dispatcher.forward(request, response);
 	}
-	
-	
-	/**
-	 * ログアウト処理
-	 */
-	private void action_logout() {
-		System.out.println("ログアウト");
-	}
+
 	
 	/**
 	 * ユーザー登録処理

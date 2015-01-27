@@ -1,0 +1,38 @@
+#order-inc-info {
+	height: 80px;
+	width: 50%;
+	margin-bottom: 20px;
+	float: left;
+}
+#order-inc-info > h3, 
+#order-inc-info > h4,
+#order-inc-info > h5 {
+	margin: 0;
+	color: #666;
+	margin-bottom: 8px;
+	width: 50%;
+}
+
+#output-document {
+	height: 80px;
+	width: 50%;
+	margin-bottom: 20px;
+	float: left;
+}
+#output-button {
+	height: 80px;
+	width: 30%;
+	float: right;
+}
+#output-button2 {
+	height: 80px;
+	width: 30%;
+	float: right;
+	margin-right: 20px;
+}
+#output-button3 {
+	height: 80px;
+	width: 30%;
+	float: right;
+	margin-right: 20px;
+}
