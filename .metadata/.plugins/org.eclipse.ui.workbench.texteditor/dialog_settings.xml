@@ -2,30 +2,30 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="" key="selection"/>
+		<item value="order_list" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="order_list"/>
+			<item value="t_customer_individual"/>
+			<item value="t_customer_company"/>
+			<item value="&quot;sale_total_profits&quot;"/>
+			<item value="&quot;sale_total_amount&quot;"/>
+			<item value="sale_total_amount"/>
 			<item value="受注確認"/>
 			<item value="注文確認"/>
-			<item value="&quot;値&quot;"/>
-			<item value="sub_total"/>
-			<item value="&quot;¥"/>
-			<item value="id"/>
-			<item value="_"/>
-			<item value="subtotal"/>
 		</list>
 		<list key="replacehistory">
+			<item value="t_individual"/>
+			<item value="t_company"/>
+			<item value="t_customer_company"/>
+			<item value="&quot;f_sale_total_profits&quot;"/>
+			<item value="&quot;f_sale_total_amount&quot;"/>
+			<item value="f_sale_total_amount"/>
 			<item value="session.getAttribute(&quot;&quot;).toString()"/>
 			<item value="suppliers"/>
-			<item value=""/>
-			<item value="no"/>
-			<item value="sub_total"/>
-			<item value="unit_price"/>
-			<item value="商品"/>
-			<item value="¥"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

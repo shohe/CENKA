@@ -63,10 +63,10 @@ public class OrderDao {
 
 		ResultSet result = select.executeQuery();
 
-		OrderBean record = new OrderBean();
 		ArrayList<OrderBean> table = new ArrayList<OrderBean>();
-
-		if (result.next()) {
+		while (result.next()) {
+			
+			OrderBean record = new OrderBean();
 			record.setOrder_id(result.getString("f_order_id"));
 			record.setCompany_id(result.getString("f_company_id"));
 			record.setIndividual_id(result.getString("f_individual_id"));

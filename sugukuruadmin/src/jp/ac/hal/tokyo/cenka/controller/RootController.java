@@ -33,6 +33,11 @@ public class RootController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		// セッションget
+		SessionContoller sessionContoller = new SessionContoller();
+		String id = sessionContoller.getSession(request, response);
+		// セッションチェック
+		sessionContoller.checkSession(id, request, response);
 	}
 
 	/**

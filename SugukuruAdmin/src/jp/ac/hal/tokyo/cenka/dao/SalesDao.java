@@ -52,8 +52,8 @@ public class SalesDao {
 			record.setSale_id(result.getString("f_sale_id"));
 			record.setSale_date(result.getDate("f_sale_date"));
 			record.setSale_flg(result.getBoolean("f_sale_flg"));
-			record.setSale_total_amount(result.getInt("sale_total_amount"));
-			record.setSale_total_profits(result.getInt("sale_total_profits"));
+			record.setSale_total_amount(result.getInt("f_sale_total_amount"));
+			record.setSale_total_profits(result.getInt("f_sale_total_profits"));
 			table.add(record);
 		}
 		return table;
@@ -80,8 +80,8 @@ public class SalesDao {
 			record.setSale_id(result.getString("f_sale_id"));
 			record.setSale_date(result.getDate("f_sale_date"));
 			record.setSale_flg(result.getBoolean("f_sale_flg"));
-			record.setSale_total_amount(result.getInt("sale_total_amount"));
-			record.setSale_total_profits(result.getInt("sale_total_profits"));
+			record.setSale_total_amount(result.getInt("f_sale_total_amount"));
+			record.setSale_total_profits(result.getInt("f_sale_total_profits"));
 		}
 		return record;
 	}*/

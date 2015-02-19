@@ -12,6 +12,14 @@ public class OrderBean {
 	private int order_total_amount;
 	private String company_id;
 	private String individual_id;
+	private String company_name;
+	
+	public String getCompany_name() {
+		return company_name;
+	}
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
+	}
 	public String getOrder_id() {
 		return order_id;
 	}

@@ -1,7 +1,10 @@
 package jp.ac.hal.tokyo.cenka.controller;
 
 import java.io.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.itextpdf.text.List;
+
+import jp.ac.hal.tokyo.cenka.beans.CustomerCompanyBean;
+import jp.ac.hal.tokyo.cenka.beans.CustomerIndividualBeanl;
+import jp.ac.hal.tokyo.cenka.beans.OrderBean;
 import jp.ac.hal.tokyo.cenka.constant.SSCORE;
+import jp.ac.hal.tokyo.cenka.dao.CustomerCompanyDao;
+import jp.ac.hal.tokyo.cenka.dao.CustomerIndividualDao;
+import jp.ac.hal.tokyo.cenka.dao.OrderDao;
+import jp.ac.hal.tokyo.cenka.dao.SalesDao;
 
 /**
  * Servlet implementation class SaleController
@@ -29,8 +41,12 @@ public class SaleController extends RootController {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		//* session check
+		SessionContoller sessionContoller = new SessionContoller();
+		String sessionId = sessionContoller.getSession(request, response);
+		sessionContoller.checkSession(sessionId, request, response);
+		
 		// アクションを振り分ける
 		this.action = sortingAction(request);
 		if(this.action == null || this.action.equals("index")) {
@@ -67,6 +83,48 @@ public class SaleController extends RootController {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		super.action_index(request, response);
+		
+		// DAO
+		OrderDao dao = null;
+		CustomerCompanyDao ccDao = null;
+		CustomerIndividualDao ciDao = null;
+		try {
+			dao = new OrderDao();
+			ccDao = new CustomerCompanyDao();
+			ciDao = new CustomerIndividualDao();
+			ArrayList<OrderBean> daoList = new ArrayList<OrderBean>();
+			daoList = (ArrayList<OrderBean>) dao.findAll();
+			
+			for (OrderBean order : daoList) {
+				
+				// 個人
+				if (order.getCompany_id().equals("-1")) {
+					order.setCompany_name(ciDao.findByIndividualId(order.getIndividual_id()).getIndividual_name());
+				} 
+				// 企業
+				else {
+					order.setCompany_name(ccDao.findByCompanyId(order.getCompany_id()).getCompany_name());
+				}
+
+			}
+			
+			request.setAttribute("orderData", daoList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (dao != null) {
+					dao.close();
+					ccDao.close();
+					ciDao.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				//jspName = "/WEB-INF/jsp/error.jsp";
+			}
+		}
 		
 		this.jsp = SSCORE.SALE_INDEX_JSP;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(this.jsp);
@@ -210,13 +268,13 @@ public class SaleController extends RootController {
 	public void action_order_list(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		// 値受け渡し用
-		String vendor = new String(request.getParameter("name").getBytes("ISO-8859-1"), "UTF-8");
-		String price = new String(request.getParameter("price").getBytes("ISO-8859-1"), "UTF-8");
-		String date = new String(request.getParameter("date").getBytes("ISO-8859-1"), "UTF-8");
-		request.setAttribute("vendor", vendor);
-		request.setAttribute("price", price);
-		request.setAttribute("date", date);
-		
+//		String vendor = new String(request.getParameter("name").getBytes("ISO-8859-1"), "UTF-8");
+//		String price = new String(request.getParameter("price").getBytes("ISO-8859-1"), "UTF-8");
+//		String date = new String(request.getParameter("date").getBytes("ISO-8859-1"), "UTF-8");
+//		request.setAttribute("vendor", vendor);
+//		request.setAttribute("price", price);
+//		request.setAttribute("date", date);
+//		
 		this.jsp = SSCORE.SALE_ORDER_LIST_JSP;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(this.jsp);
 		dispatcher.forward(request, response);

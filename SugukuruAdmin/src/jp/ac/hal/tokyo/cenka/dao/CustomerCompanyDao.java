@@ -57,7 +57,7 @@ public class CustomerCompanyDao {
 	public CustomerCompanyBean findByCompanyId(String company_id) throws SQLException {
 
 		PreparedStatement select =
-			con.prepareStatement("select * from t_customer_company where f_company_id = ?");
+			con.prepareStatement("select * from t_company where f_company_id = ?");
 
 		select.setString(1, company_id);
 		ResultSet result = select.executeQuery();
@@ -85,7 +85,7 @@ public class CustomerCompanyDao {
 	public int create(CustomerCompanyBean newRecord) throws SQLException {
 
 		PreparedStatement insert =
-			con.prepareStatement("insert into t_customer_company (f_company_id,f_company_name,f_company_tel,f_company_address,f_company_mail) values (?,?,?,?,?)");
+			con.prepareStatement("insert into t_company (f_company_id,f_company_name,f_company_tel,f_company_address,f_company_mail) values (?,?,?,?,?)");
 		insert.setString(1, newRecord.getCompany_id());
 		insert.setString(2, newRecord.getCompany_name());
 		insert.setString(3, newRecord.getCompany_tel());

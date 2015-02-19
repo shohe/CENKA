@@ -67,17 +67,14 @@ public class LoginController extends RootController {
 		String pswd = request.getParameter("pswd");
 		String unitName = "";
 
-		HttpSession session = request.getSession(true);
-
 		// idとpswdをチェックしてリダイレクト
 		try {
-
 			unitName = chkLogin(id, pswd);
-
 			if (!unitName.isEmpty()) {
+				//* session処理
 				SessionContoller sessionContoller = new SessionContoller();
 				sessionContoller.setSession(id, request, response);
-
+				
 				if (unitName.equals("経理")) {
 					this.jsp = SSCORE.SALE_CONTROLLER;
 					response.sendRedirect(this.jsp);
@@ -103,6 +100,7 @@ public class LoginController extends RootController {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
 		}
+
 	}
 
 	/**
@@ -123,27 +121,20 @@ public class LoginController extends RootController {
 		EmployeesBean employeeRecord = new EmployeesBean();
 		UnitsBean unitRecord = new UnitsBean();
 
-		String employeeId = "";
 		String unitName = "";
 		String unitId = "";
 
 		employeeRecord = employees.Login(id, pswd);
 
 		if (employeeRecord.getEmployee_id() != null) {
-			employeeId = employeeRecord.getEmployee_id().toString();
 			unitId = employeeRecord.getUnit_id().toString();
-
 			unitRecord = unit.findByUnitId(unitId);
 			unitName = unitRecord.getUnit_name().toString();
-
-			return unitName;
 		}
 
 		employees.close();
 		unit.close();
-
-		return "";
-
+		return unitName;
 	}
 
 	/**

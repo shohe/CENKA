@@ -57,7 +57,7 @@ public class CustomerIndividualDao {
 	public CustomerIndividualBeanl findByIndividualId(String individual_id) throws SQLException {
 
 		PreparedStatement select =
-			con.prepareStatement("select * from t_customer_individual where f_individual_id = ?");
+			con.prepareStatement("select * from t_individual where f_individual_id = ?");
 
 		select.setString(1, individual_id);
 		ResultSet result = select.executeQuery();
@@ -104,7 +104,7 @@ public class CustomerIndividualDao {
 	 */
 	public int delete(String individual_id) throws SQLException {
 
-		PreparedStatement delete = con.prepareStatement("delete from t_customer_individual where individual_id = ?");
+		PreparedStatement delete = con.prepareStatement("delete from t_individual where individual_id = ?");
 		delete.setString(1, individual_id);
 		return delete.executeUpdate();
 	}

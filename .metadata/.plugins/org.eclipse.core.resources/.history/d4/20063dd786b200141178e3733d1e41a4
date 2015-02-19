@@ -1,0 +1,141 @@
+package jp.ac.hal.tokyo.cenka.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import jp.ac.hal.tokyo.cenka.beans.SalesBean;
+
+
+
+public class SalesDao {
+
+	private Connection con;
+
+	public SalesDao() throws NamingException, SQLException {
+		InitialContext context = new InitialContext();
+		DataSource ds =
+			(DataSource) context.lookup("java:comp/env/jdbc/sugukuru");
+		con = ds.getConnection();
+	}
+
+	public SalesDao(Connection con){
+		this.con = con;
+	}
+
+	/**
+	 * 全件取得する
+	 *
+	 * @return 全件
+	 * @throws SQLException
+	 */
+	public List<SalesBean> findAll() throws SQLException {
+
+		PreparedStatement select = con.prepareStatement("select * from T_SALES");
+
+		ResultSet result = select.executeQuery();
+
+		ArrayList<SalesBean> table = new ArrayList<SalesBean>();
+		while (result.next()) {
+
+			SalesBean record = new SalesBean();
+			record.setOrder_id(result.getString("f_order_id"));
+			record.setSale_id(result.getString("f_sale_id"));
+			record.setSale_date(result.getDate("f_sale_date"));
+			record.setSale_flg(result.getBoolean("f_sale_flg"));
+			record.setSale_total_amount(result.getInt("f_sale_total_amount"));
+			record.setSale_total_profits(result.getInt("sale_total_profits"));
+			table.add(record);
+		}
+		return table;
+	}
+
+	/**
+	 * 主キーで検索
+	 *
+	 * @param products_id
+	 * @return
+	 * @throws SQLException
+	 */
+	/*public SalesBean findByLanguageId(int order_id) throws SQLException {
+
+		PreparedStatement select = con.prepareStatement("select * from T_SALES where f_order_id = ?");
+
+		select.setInt(1, order_id);
+		ResultSet result = select.executeQuery();
+
+		SalesBean record = new SalesBean();
+
+		if (result.next()) {
+			record.setOrder_id(result.getString("f_order_id"));
+			record.setSale_id(result.getString("f_sale_id"));
+			record.setSale_date(result.getDate("f_sale_date"));
+			record.setSale_flg(result.getBoolean("f_sale_flg"));
+			record.setSale_total_amount(result.getInt("f_sale_total_amount"));
+			record.setSale_total_profits(result.getInt("sale_total_profits"));
+		}
+		return record;
+	}*/
+
+	/**
+	 * 新規保存
+	 *
+	 * @param newRecord 保存データ
+	 * @return 影響のあった行数
+	 * @throws SQLException
+	 */
+	public int create(SalesBean newRecord) throws SQLException {
+
+		PreparedStatement insert = con.prepareStatement("insert into T_SALES (f_order_id,"
+				+ "															f_sale_id,"
+				+ "															f_sale_date,"
+				+ "															f_sale_flg,"
+				+ "															f_sale_total_amount,"
+				+ "															f_sale_total_profits)"
+				+ "															values (?,?,?,?,?,?)");
+		insert.setString(1, newRecord.getOrder_id());
+		insert.setString(2, newRecord.getSale_id());
+		insert.setString(3, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		insert.setBoolean(4, newRecord.getSale_flg());
+		insert.setInt(5, newRecord.getSale_total_amount());
+		insert.setInt(6, newRecord.getSale_total_profits());
+		return insert.executeUpdate();
+	}
+
+	/**
+	 * 接続を閉じる
+	 *
+	 * @throws SQLException
+	 */
+	public void close() throws SQLException {
+		con.close();
+	}
+
+	/**
+	 * コミット
+	 *
+	 * @throws SQLException
+	 */
+	public void commit() throws SQLException {
+		con.commit();
+	}
+
+	/**
+	 * ロールバック
+	 *
+	 * @throws SQLException
+	 */
+	public void rollback() throws SQLException {
+		con.rollback();
+	}
+
+}
