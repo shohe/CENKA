@@ -29,13 +29,14 @@ import jp.ac.hal.tokyo.cenka.dao.SalesDao;
 @WebServlet("/sale/*")
 public class SaleController extends RootController {
 	private static final long serialVersionUID = 1L;
+	private SessionContoller sessionContoller;
        
     /**
      * @see RootController#RootController()
      */
     public SaleController() {
         super();
-        // TODO Auto-generated constructor stub
+        sessionContoller = new SessionContoller();
     }
 
 	/**
@@ -43,7 +44,6 @@ public class SaleController extends RootController {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		//* session check
-		SessionContoller sessionContoller = new SessionContoller();
 		String sessionId = sessionContoller.getSession(request, response);
 		sessionContoller.checkSession(sessionId, request, response);
 		
@@ -148,6 +148,7 @@ public class SaleController extends RootController {
 		request.setAttribute("E_zipcode", " ");
 		request.setAttribute("E_tel_code", " ");
 		request.setAttribute("E_mail", " ");
+		
 		this.jsp = SSCORE.SALE_ORDER_JSP;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(this.jsp);
 		dispatcher.forward(request, response);
@@ -219,19 +220,7 @@ public class SaleController extends RootController {
 			// バーコードの操作をココでする
 			String bcd = new String(request.getParameter("bcd").getBytes("ISO-8859-1"), "UTF-8");
 			if (!bcd.isEmpty() && bcd != null) {
-				try{
-					File file = new File(getServletContext().getRealPath("/json/bcd.json"));
-				    if (file.isFile() && file.canWrite()) {
-				    	System.out.println("-");
-				    	FileWriter filewriter = new FileWriter(file);
-				        filewriter.write("test");
-				        filewriter.close();
-				     } else {
-				       System.out.println("ファイルに書き込めません");
-				     }
-				 } catch(IOException e) {
-					 System.out.println(e);
-				 }
+				System.out.println("-");
 			}
 			
 			this.jsp = SSCORE.SALE_ORDER_PRODUCT_JSP;
@@ -274,7 +263,7 @@ public class SaleController extends RootController {
 //		request.setAttribute("vendor", vendor);
 //		request.setAttribute("price", price);
 //		request.setAttribute("date", date);
-//		
+
 		this.jsp = SSCORE.SALE_ORDER_LIST_JSP;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(this.jsp);
 		dispatcher.forward(request, response);

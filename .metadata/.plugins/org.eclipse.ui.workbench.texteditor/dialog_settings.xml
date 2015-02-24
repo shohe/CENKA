@@ -2,12 +2,13 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="order_list" key="selection"/>
+		<item value="Session" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="session"/>
 			<item value="order_list"/>
 			<item value="t_customer_individual"/>
 			<item value="t_customer_company"/>
@@ -15,7 +16,6 @@
 			<item value="&quot;sale_total_amount&quot;"/>
 			<item value="sale_total_amount"/>
 			<item value="受注確認"/>
-			<item value="注文確認"/>
 		</list>
 		<list key="replacehistory">
 			<item value="t_individual"/>

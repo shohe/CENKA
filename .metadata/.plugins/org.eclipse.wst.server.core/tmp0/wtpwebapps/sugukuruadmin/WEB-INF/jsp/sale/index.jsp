@@ -19,7 +19,6 @@
 	function disp(){
 		// 「OK」時の処理開始 ＋ 確認ダイアログの表示
 		if(window.confirm('ログアウトしますか？')){
-			<% session.invalidate(); %>
 			location.href = "http://localhost:8080/SugukuruAdmin/login/";
 		}
 	}

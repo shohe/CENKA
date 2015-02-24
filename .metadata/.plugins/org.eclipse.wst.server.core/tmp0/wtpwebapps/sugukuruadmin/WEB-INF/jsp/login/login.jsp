@@ -14,7 +14,10 @@
     <div class="login_logo">
       <div id="login_img_wrap"><img src="../img/logo.png" alt="ロゴ"></div>
     </div>
-
+	
+	<!-- セッション切る -->
+	<% session.invalidate(); %>
+	
     <!-- フォーム -->
     <div class="login_form">
       <form action="login.jsp" method="POST">
