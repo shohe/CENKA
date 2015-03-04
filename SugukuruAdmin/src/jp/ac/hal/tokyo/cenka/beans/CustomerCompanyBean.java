@@ -3,7 +3,7 @@ package jp.ac.hal.tokyo.cenka.beans;
 public class CustomerCompanyBean {
 
 
-	//顧客（企業）
+		//顧客（企業）
 		//customer_company
 		private String company_id;
 		private String company_name;

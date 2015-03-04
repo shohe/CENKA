@@ -39,7 +39,7 @@ public class ProductsDao {
 	 */
 	public List<ProductsBean> findAll() throws SQLException {
 
-		PreparedStatement select = con.prepareStatement("select * from T_products");
+		PreparedStatement select = con.prepareStatement("select * from t_product");
 
 		ResultSet result = select.executeQuery();
 
@@ -52,6 +52,7 @@ public class ProductsDao {
 			record.setTaax_omission_price(result.getInt("f_tasx_omission_price"));
 			table.add(record);
 		}
+		
 		return table;
 	}
 
@@ -62,11 +63,11 @@ public class ProductsDao {
 	 * @return
 	 * @throws SQLException
 	 */
-	public ProductsBean findByLanguageId(int product_id) throws SQLException {
+	public ProductsBean findByLanguageId(String product_id) throws SQLException {
 
-		PreparedStatement select = con.prepareStatement("select * from T_PRODUCTS where f_product_id = ?");
+		PreparedStatement select = con.prepareStatement("select * from t_product where f_product_id = ?");
 
-		select.setInt(1, product_id);
+		select.setString(1, product_id);
 		ResultSet result = select.executeQuery();
 
 		ProductsBean record = new ProductsBean();
@@ -76,6 +77,7 @@ public class ProductsDao {
 			record.setProduct_name(result.getString("f_product_name"));
 			record.setTaax_omission_price(result.getInt("f_taax_omission_price"));
 		}
+		
 		return record;
 	}
 

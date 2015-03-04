@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -59,9 +60,9 @@
 					<button id="output-button3" type="submit" class="btn btn-primary" name="nouhin" value="1">納品書発行</button>
 				</form>
 			</div>
-			<table id="events-table" data-toggle="table" data-url="../json/data2.json" data-height="400">
+			<table id="events-table" data-toggle="table"  data-height="400">
 			<!-- data-search="true"を付けると検索できます -->
-			    <thead>
+			   <thead>
 			        <tr>
 			            <a href="#"><th data-field="no" data-align="">商品No</th></a>
 			            <th data-field="name" data-align="">商品名</th>
@@ -69,7 +70,16 @@
 			            <th data-field="number" data-align="">個数</th>
 			            <th data-field="sub_total" data-align="">小計</th>
 			        </tr>
-			    </thead>
+			  </thead>
+			  <c:forEach items="${orderlistData}" var="details">
+			     	<tr>
+			        	<td>${ details.order_details_id }</td>
+			        	<td>${ details.product_name }</td>
+			        	<td>¥ ${ details.tanka }</td>
+			        	<td>${ details.order_details_quantity }</td>
+			        	<td>¥ ${ details.price }</td>
+			        </tr>
+			  </c:forEach>
 			</table>
 		</div><!-- /main_content -->
 	</div><!-- /body_wrapper -->

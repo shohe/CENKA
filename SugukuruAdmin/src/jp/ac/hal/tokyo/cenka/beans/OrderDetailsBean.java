@@ -7,8 +7,10 @@ public class OrderDetailsBean {
 	private String order_details_id;
 	private int price;
 	private int order_details_quantity;
+	private int tanka;
 	private String order_id;
 	private String product_id;
+	private String product_name;
 
 
 	public String getOrder_details_id() {
@@ -40,6 +42,18 @@ public class OrderDetailsBean {
 	}
 	public void setProduct_id(String product_id) {
 		this.product_id = product_id;
+	}
+	public String getProduct_name() {
+		return product_name;
+	}
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+	public int getTanka() {
+		return tanka;
+	}
+	public void setTanka(int tanka) {
+		this.tanka = tanka;
 	}
 
 

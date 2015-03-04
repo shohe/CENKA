@@ -37,7 +37,7 @@ public class SupplierDao {
 	 */
 	public SupplierBean findByLanguageId(String supplier_id ) throws SQLException {
 
-		PreparedStatement select = con.prepareStatement("select * from t_supplier where supplier_id = ?");
+		PreparedStatement select = con.prepareStatement("select * from t_supplier where f_supplier_id = ?");
 
 		select.setString(1, supplier_id);
 		ResultSet result = select.executeQuery();
@@ -45,12 +45,15 @@ public class SupplierDao {
 		SupplierBean record = new SupplierBean();
 
 		if (result.next()) {
-			record.setSupplier_id(result.getString("supplier_id"));
-			record.setSupplier_name(result.getString("name"));
-			record.setSupplier_address(result.getNString("supplier_address"));
-			record.setSupplier_tel(result.getString("supplier_tel"));
-			record.setPayday(result.getDate("last_update"));
+			record.setSupplier_id(result.getString("f_supplier_id"));
+			record.setSupplier_name(result.getString("f_name"));
+			record.setSupplier_address(result.getString("f_supplier_address"));
+			record.setSupplier_tel(result.getString("f_supplier_tel"));
+			record.setSupplier_mail(result.getString("f_supplier_mail"));
+			record.setPayday(result.getDate("f_payday"));
 		}
+		
+		con.close();
 		return record;
 	}
 

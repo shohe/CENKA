@@ -48,7 +48,7 @@ public class PdfNouhinServlet extends HttpServlet {
 		
 		try {
 			// 1 テンプレートを読み込む
-			PdfReader reader = new PdfReader(this.getClass().getResourceAsStream("/pdf/hacchuDoc.pdf"));
+			PdfReader reader = new PdfReader(this.getClass().getResourceAsStream("/pdf/Statement.pdf"));
 			
 			// 2 入力欄の取得
 			PdfStamper stamper = new PdfStamper(reader, response.getOutputStream());

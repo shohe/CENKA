@@ -17,10 +17,13 @@ import com.itextpdf.text.List;
 import jp.ac.hal.tokyo.cenka.beans.CustomerCompanyBean;
 import jp.ac.hal.tokyo.cenka.beans.CustomerIndividualBeanl;
 import jp.ac.hal.tokyo.cenka.beans.OrderBean;
+import jp.ac.hal.tokyo.cenka.beans.OrderDetailsBean;
 import jp.ac.hal.tokyo.cenka.constant.SSCORE;
 import jp.ac.hal.tokyo.cenka.dao.CustomerCompanyDao;
 import jp.ac.hal.tokyo.cenka.dao.CustomerIndividualDao;
 import jp.ac.hal.tokyo.cenka.dao.OrderDao;
+import jp.ac.hal.tokyo.cenka.dao.OrderDetailsDao;
+import jp.ac.hal.tokyo.cenka.dao.ProductsDao;
 import jp.ac.hal.tokyo.cenka.dao.SalesDao;
 
 /**
@@ -220,7 +223,7 @@ public class SaleController extends RootController {
 			// バーコードの操作をココでする
 			String bcd = new String(request.getParameter("bcd").getBytes("ISO-8859-1"), "UTF-8");
 			if (!bcd.isEmpty() && bcd != null) {
-				System.out.println("-");
+				System.out.println(bcd);
 			}
 			
 			this.jsp = SSCORE.SALE_ORDER_PRODUCT_JSP;
@@ -263,6 +266,41 @@ public class SaleController extends RootController {
 //		request.setAttribute("vendor", vendor);
 //		request.setAttribute("price", price);
 //		request.setAttribute("date", date);
+		
+		String order_id = new String(request.getParameter("order_id").getBytes("ISO-8859-1"), "UTF-8");
+		System.out.print(request.getParameter("order_id"));
+		
+		// DAO
+		OrderDetailsDao odDao = null;
+		ProductsDao pDao = null;
+		try {
+			odDao = new OrderDetailsDao();
+			pDao = new ProductsDao();
+			ArrayList<OrderDetailsBean> dao_Order_List = new ArrayList<OrderDetailsBean>();
+			dao_Order_List = (ArrayList<OrderDetailsBean>) odDao.findAll(order_id);
+			
+			for (OrderDetailsBean order_details : dao_Order_List) {
+				order_details.setProduct_name(pDao.findByLanguageId(order_details.getProduct_id()).getProduct_name());
+				order_details.setTanka(pDao.findByLanguageId(order_details.getProduct_id()).getTaax_omission_price());
+				order_details.setPrice(order_details.getTanka() * order_details.getOrder_details_quantity());
+			}
+			
+			request.setAttribute("orderlistData", dao_Order_List);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (NamingException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (odDao != null) {
+					odDao.close();
+					pDao.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				//jspName = "/WEB-INF/jsp/error.jsp";
+			}
+		}
 
 		this.jsp = SSCORE.SALE_ORDER_LIST_JSP;
 		RequestDispatcher dispatcher = request.getRequestDispatcher(this.jsp);
@@ -296,6 +334,9 @@ public class SaleController extends RootController {
 			throws ServletException, IOException {
 		
 		// 値受け渡し準備
+		String pdfNohin = request.getParameter("nouhin");
+		String pdfSeikyu = request.getParameter("seikyu");
+		String pdfJuryou = request.getParameter("juryou");
 		String company_name = new String(request.getParameter("company_name").getBytes("ISO-8859-1"), "UTF-8");
 		String zip_code = new String(request.getParameter("zip_code").getBytes("ISO-8859-1"), "UTF-8");
 		String address = new String(request.getParameter("address").getBytes("ISO-8859-1"), "UTF-8");
@@ -336,16 +377,16 @@ public class SaleController extends RootController {
 		session.setAttribute("note", note);
 		
 		// 納品書
-		if(!request.getParameter("nouhin").isEmpty()) {
+		if(pdfNohin != null && !pdfNohin.isEmpty()) {
 			response.sendRedirect(SSCORE.PDF_NOUHIN_SERVLET);
 		}
 		// 請求書
-		else if(!request.getParameter("seikyu").isEmpty()) {
-			response.sendRedirect(SSCORE.PDF_NOUHIN_SERVLET);
+		else if(pdfSeikyu != null && !pdfSeikyu.isEmpty()) {
+			//response.sendRedirect(SSCORE.PDF_HACCHU_SERVLET);
 		} 
 		// 受領書
-		else if(!request.getParameter("juryou").isEmpty()) {
-			response.sendRedirect(SSCORE.PDF_NOUHIN_SERVLET);
+		else if(pdfJuryou != null && !pdfJuryou.isEmpty()) {
+			response.sendRedirect(SSCORE.PDF_JUCHU_SERVLET);
 		}
 		
 	}

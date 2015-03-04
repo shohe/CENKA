@@ -56,7 +56,12 @@
 			    </thead>
 			    <c:forEach items="${orderData}" var="record">
 			     	<tr>
-			        	<td><a href="order_list">${ record.order_id }</a></td>
+			        	<td>
+			        		<form action="order_list">
+			        			<input type="hidden" name="order_id" value="${ record.order_id }" />
+			        			<input type="submit" name="${ record.order_id }" value="${ record.order_id }">
+			        		</form>
+			        	</td>
 			        	<td>${ record.company_name }</td>
 			        	<td>¥ ${ record.order_total_amount }</td>
 			        	<td>${ record.order_day }</td>

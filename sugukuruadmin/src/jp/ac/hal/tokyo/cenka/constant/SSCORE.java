@@ -16,6 +16,9 @@ public class SSCORE {
 	public static final String SALE_STOCK_LIST_JSP = "/WEB-INF/jsp/sale/stock_list.jsp";
 	
 	public static final String PDF_NOUHIN_SERVLET = "../PdfNouhinServlet";
+	public static final String PDF_HACCHU_SERVLET = "../";
+	public static final String PDF_RYOSHU_SERVLET = "../Ryoushusyo";
+	public static final String PDF_JUCHU_SERVLET = "../JuryousyoPDF";
 	
 //	public static final String BARCODE_JSON_FILE_PATH = getServletContext().getRealPath("/json/bcd.json");
 }

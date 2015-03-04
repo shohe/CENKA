@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="Session" key="selection"/>
+		<item value="t_product" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="t_products"/>
+			<item value="sugukuru.t_products"/>
+			<item value="order"/>
+			<item value="領収書"/>
+			<item value="Pdf"/>
+			<item value="nohin"/>
+			<item value="println(&quot;-"/>
 			<item value="session"/>
-			<item value="order_list"/>
-			<item value="t_customer_individual"/>
-			<item value="t_customer_company"/>
-			<item value="&quot;sale_total_profits&quot;"/>
-			<item value="&quot;sale_total_amount&quot;"/>
-			<item value="sale_total_amount"/>
-			<item value="受注確認"/>
 		</list>
 		<list key="replacehistory">
+			<item value="t_product"/>
 			<item value="t_individual"/>
 			<item value="t_company"/>
 			<item value="t_customer_company"/>
@@ -25,14 +26,13 @@
 			<item value="&quot;f_sale_total_amount&quot;"/>
 			<item value="f_sale_total_amount"/>
 			<item value="session.getAttribute(&quot;&quot;).toString()"/>
-			<item value="suppliers"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="263" key="DIALOG_WIDTH"/>
 		<item value="1|Lucida Grande|11.0|0|COCOA|1|LucidaGrande" key="DIALOG_FONT_NAME"/>
 		<item value="399" key="DIALOG_HEIGHT"/>
-		<item value="868" key="DIALOG_X_ORIGIN"/>
-		<item value="347" key="DIALOG_Y_ORIGIN"/>
+		<item value="755" key="DIALOG_X_ORIGIN"/>
+		<item value="303" key="DIALOG_Y_ORIGIN"/>
 	</section>
 </section>

@@ -1,0 +1,106 @@
+package jp.ac.hal.tokyo.cenka.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+import jp.ac.hal.tokyo.cenka.beans.OrderDetailsBean;
+
+
+
+/**
+ * 仕入 テーブルへのアクセスを行う DAO
+ *
+ * @author hal
+ */
+public class OrderDetailsDao {
+
+	/** Connection */
+	private Connection con;
+
+	/**
+	 * コンストラクタ
+	 * @throws NamingException
+	 * @throws SQLException
+	 */
+	public OrderDetailsDao() throws NamingException, SQLException {
+		InitialContext context = new InitialContext();
+		DataSource ds =
+			(DataSource) context.lookup("java:comp/env/jdbc/sugukuru");
+		con = ds.getConnection();
+	}
+
+	/**
+	 *
+	 * コンストラクタ
+	 *
+	 * @param con
+	 */
+	public OrderDetailsDao(Connection con){
+		this.con = con;
+	}
+
+	/**
+	 * 受注詳細一覧処理
+	 *
+
+	 * @return record
+	 * @throws SQLException
+	 */
+	public List<OrderDetailsBean> findAll(String order_id) throws SQLException {
+
+		PreparedStatement select =
+			con.prepareStatement("select * from t_order_details where f_order_id = ?");
+
+			select.setString(1, order_id);
+		ResultSet result = select.executeQuery();
+
+		OrderDetailsBean record = new OrderDetailsBean();
+		ArrayList<OrderDetailsBean> table = new ArrayList<OrderDetailsBean>();
+
+		if (result.next()) {
+			record.setOrder_details_id(result.getString("f_order_details_id"));
+			record.setOrder_id(result.getString("f_order_id"));
+			record.setProduct_id(result.getString("f_product_id"));
+			record.setPrice(result.getInt("f_Price"));
+			record.setOrder_details_quantity(result.getInt("f_order_details_quantity"));
+			table.add(record);
+		}
+		
+		return table;
+	}
+
+	/**
+	 * 接続を閉じる
+	 *
+	 * @throws SQLException
+	 */
+	public void close() throws SQLException {
+		con.close();
+	}
+
+	/**
+	 * コミット
+	 *
+	 * @throws SQLException
+	 */
+	public void commit() throws SQLException {
+		con.commit();
+	}
+
+	/**
+	 * ロールバック
+	 *
+	 * @throws SQLException
+	 */
+	public void rollback() throws SQLException {
+		con.rollback();
+	}
+}

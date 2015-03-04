@@ -91,6 +91,7 @@ public class StockDao {
 		insert.setString(3, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		insert.setInt(4, newRecord.getStock__tootal_amount());
 		insert.setBoolean(5,false);
+		
 		return insert.executeUpdate();
 	}
 
@@ -104,7 +105,7 @@ public class StockDao {
 	public StockBean findByStockId(String stock_id) throws SQLException {
 
 		PreparedStatement select =
-			con.prepareStatement("select f_supplier_id,f_stock_day,f_total_amount,f_stock_flg from t_stock where f_stock_id = ?");
+			con.prepareStatement("select * from t_stock where f_stock_id = ?");
 
 		select.setString(1, stock_id);
 		ResultSet result = select.executeQuery();
@@ -114,10 +115,10 @@ public class StockDao {
 		if (result.next()) {
 			record.setSupplier_id(result.getString("f_supplier_id"));
 			record.setStock__id(result.getString("f_stock_id"));
-			record.setStock__tootal_amount(result.getInt("f_total_amount"));
+			record.setStock__tootal_amount(result.getInt("f_stock_total_amount"));
 			record.setStock_flg(result.getBoolean("f_stock_flg"));
 		}
-
+		con.close();
 		return record;
 	}
 
