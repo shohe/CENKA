@@ -14,11 +14,13 @@ import javax.servlet.http.HttpSession;
 
 import com.itextpdf.text.List;
 
+import jp.ac.hal.tokyo.cenka.beans.BarcodeBean;
 import jp.ac.hal.tokyo.cenka.beans.CustomerCompanyBean;
 import jp.ac.hal.tokyo.cenka.beans.CustomerIndividualBeanl;
 import jp.ac.hal.tokyo.cenka.beans.OrderBean;
 import jp.ac.hal.tokyo.cenka.beans.OrderDetailsBean;
 import jp.ac.hal.tokyo.cenka.constant.SSCORE;
+import jp.ac.hal.tokyo.cenka.dao.BarcodeDao;
 import jp.ac.hal.tokyo.cenka.dao.CustomerCompanyDao;
 import jp.ac.hal.tokyo.cenka.dao.CustomerIndividualDao;
 import jp.ac.hal.tokyo.cenka.dao.OrderDao;
@@ -223,7 +225,38 @@ public class SaleController extends RootController {
 			// バーコードの操作をココでする
 			String bcd = new String(request.getParameter("bcd").getBytes("ISO-8859-1"), "UTF-8");
 			if (!bcd.isEmpty() && bcd != null) {
-				System.out.println(bcd);
+				// DAO
+				BarcodeDao bDao = null;
+				ProductsDao pDao = null;
+				BarcodeBean bean = null;
+				
+				try {
+					bDao = new BarcodeDao();
+					bean = new BarcodeBean();
+					pDao = new ProductsDao();
+					
+					bean.setProduct_id(bcd);
+					bean.setProduct_name(pDao.findByLanguageId(bcd).getProduct_name());
+					bean.setProduct_unit(pDao.findByLanguageId(bcd).getTaax_omission_price());
+					
+					if (bean.getProduct_name() != null) {
+						bDao.create(bean);
+					}
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} catch (NamingException e) {
+					e.printStackTrace();
+				} finally {
+					try {
+						if (bDao != null) {
+							bDao.close();
+							pDao.close();
+						}
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 			
 			this.jsp = SSCORE.SALE_ORDER_PRODUCT_JSP;
